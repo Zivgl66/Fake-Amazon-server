@@ -4,9 +4,7 @@ const usersValidation = require("../../validation/users.validation");
 const bcrypt = require("../../config/bcrypt");
 const jwt = require("../../config/jwt");
 const adminMiddelaware = require("../../middelware/admin.middelware");
-const generateRandomAlphaNumString = require("../../util/randomAlphaNum");
 const usersModule = require("../../models/users.model");
-const e = require("express");
 const nodemailer = require("nodemailer");
 let transporter = nodemailer.createTransport({
   service: "zoho",
@@ -82,7 +80,6 @@ router.post("/login", async (req, res) => {
       },
       "14d"
     );
-    // res.json({ status: "ok", msg: "user logged in" }, token);
     console.log(token);
     res.json(token).status(200);
   } catch (err) {
@@ -140,8 +137,8 @@ router.post("/forgotpassword", async (req, res) => {
       { email: usersData[0].email, id: usersData[0]._id },
       "5m"
     );
-    const link = `http://localhost:3000/resetpassword/${usersData[0]._id}/${token}`;
-    const appLink = "http://localhost:3000/";
+    const link = `https://fake-amazon.onrender.com/resetpassword/${usersData[0]._id}/${token}`;
+    const appLink = "https://fake-amazon.onrender.com/";
 
     let info = await transporter.sendMail({
       from: '"Fake Amazon" <zivgl66@zohomail.com>',
